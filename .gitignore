@@ -1,0 +1,11 @@
+# dependencies
+/instagram_api/node_modules
+
+#env
+/instagram_api/.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+/orm_python_sqlite/camara.db
