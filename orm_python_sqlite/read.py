@@ -2,7 +2,7 @@
 
 from index import Vereadores, Projetos
 
-projeto = Projetos.get(Projetos.codigo == "352 /2021").get()
+projeto = Projetos.get(Projetos.protocolo == "352 /2021").get()
 
 print(projeto) #da pra acessar os atributos pelo .
 
