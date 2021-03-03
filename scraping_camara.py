@@ -9,7 +9,7 @@ import json
 
 class Scraping_camara:
     def __init__(self):
-        self.chromedriver = '/home/naum/Documentos/BotCamara/src/chromedriver'
+        self.chromedriver = 'LINK_CHROMEDRIVER'
         pass
 
     def acess(self, last_acess):
