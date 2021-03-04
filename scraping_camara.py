@@ -9,13 +9,15 @@ import json
 
 class Scraping_camara:
     def __init__(self):
-        self.chromedriver = 'LINK_CHROMEDRIVER'
+        self.chromedriver = "chromedriver.exe"
         pass
 
-    def acess(self, last_acess):
+    def acess(self, last_acess, vereadores_dict):
+        if last_acess == "":
+            return []
         page = 0
         find = False
-        projetos = {}
+        projetos = []
         driver = webdriver.Chrome(self.chromedriver)
         driver.set_page_load_timeout(10000)
         driver.get("http://www.splonline.com.br/cmteresina/consulta-cronologico.aspx")
@@ -48,7 +50,8 @@ class Scraping_camara:
                     setor = driver.find_element_by_xpath(endereco_setor).text.split(": ")[1]
                     endereco_fase = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[9]'
                     fase = driver.find_element_by_xpath(endereco_fase).text.split(": ")[1]
-                    projetos.update({processo: {"protocolo": protocolo, "data": data, "situacao": situacao, "autor": autor, "resumo": resumo, "setor": setor, "fase": fase}})
+                    projetos.append({"processo": processo, "protocolo": protocolo, "data": data, "titulo": resumo, "situacao": situacao, "setor": setor, "fase": fase, "vereador": vereadores_dict[autor.upper()]["id"]})
+    
                     
                 page += 1
                 pagina = '//*[@id="ContentPlaceHolder1_rptPaging_lbPaging_' + str(page) + '"]'
@@ -56,11 +59,11 @@ class Scraping_camara:
                 button.click()
                 time.sleep(3)
 
-            print(projetos)
+            #print(projetos)
             return(projetos)
             driver.close()
         except Exception as e :
             print("ERRO em Camara",e)
 
-sc = Scraping_camara()
-sc.acess("374 /2021")
+#sc = Scraping_camara()
+#sc.acess("374 /2021")
