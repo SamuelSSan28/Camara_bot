@@ -33,10 +33,6 @@ vereador_10 = Vereadores.create(nome='ENZO SAMUEL',perfil="@vereadorenzosamuel")
 # Inserimos um Vereador 
 vereador_11 = Vereadores.create(nome='EVANDRO HIDD',perfil="@evandrohidd")
 
-
-# Inserimos um Vereador 
-vereador_11 = Vereadores.create(nome='EVANDRO HIDD',perfil="@vereadorafernandagomes")
-
 # Inserimos um Vereador 
 vereador_12 = Vereadores.create(nome='GUSTAVO DE CARVALHO',perfil="@vereadorgustavodecarvalho")
 
@@ -68,7 +64,7 @@ vereador_20 = Vereadores.create(nome='NETO DO ANGELIM',perfil="@netodoangelimver
 vereador_21 = Vereadores.create(nome='PAULO LOPES',perfil="@paulolopesteresina")
 
 # Inserimos um Vereador 
-vereador_22 = Vereadores.create(nome='POLLYANNA ROCHA',perfil="@sem")
+vereador_22 = Vereadores.create(nome='POLLYANNA ROCHA',perfil="@p")
 
 # Inserimos um Vereador 
 vereador_23 = Vereadores.create(nome='THANANDRA SARAPATINHAS',perfil="@thanandra.sarapatinhase")
@@ -77,7 +73,7 @@ vereador_23 = Vereadores.create(nome='THANANDRA SARAPATINHAS',perfil="@thanandra
 vereador_24 = Vereadores.create(nome='RENATO BERGER',perfil="@renato.berger")
 
 # Inserimos um Vereador 
-vereador_25 = Vereadores.create(nome='TERESINHA MEDEIROS',perfil="@")
+vereador_25 = Vereadores.create(nome='TERESINHA MEDEIROS',perfil="@t")
 
 # Inserimos um Vereador 
 vereador_26 = Vereadores.create(nome='VALDEMIR VIRGINO',perfil="@valdemirvirgino")

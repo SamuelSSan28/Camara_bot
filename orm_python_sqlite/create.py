@@ -1,4 +1,4 @@
-from index import Vereadores, Projetos
+from index import  Projetos
 
 projeto_1 = {
     'processo':"374 /2021",

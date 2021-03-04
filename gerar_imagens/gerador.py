@@ -42,10 +42,11 @@ def gerar_imagens(projetos, vereadores_dict):
             d.text((40,k), dado, align="left", font=fnt2, fill=color)
             k += 25
         
-        img_path = 'images/img_proj_' + str(projeto["processo"][:3] + '.jpeg')
-        img.save('gerar_imagens/'+ img_path)
-        paths.append(img_path + "\n")
+        img_path = 'images/img_proj_' + str(projeto["processo"][:3] + '.jpeg') 
+        img.save('./gerar_imagens/'+ img_path)
+    
+        paths.append(img_path+",legenda @galerinhadomal" + "\n") #mandar as informações para a legende
 
-    arquivo = open('gerar_imagens/paths.txt', 'w')
+    arquivo = open('./gerar_imagens/paths.txt', 'w')
     arquivo.writelines(paths)
     arquivo.close()
