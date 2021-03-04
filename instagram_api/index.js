@@ -1,8 +1,10 @@
 const Instagram = require('instagram-web-api')
-require("dotenv").config();
+require("dotenv").config({path: __dirname+'/.env'});
 const path = require("path")
 
 const { USERNAME_INSTAGRAM, PASSWORD_INSTAGRAM } = process.env; 
+
+console.log(USERNAME_INSTAGRAM, PASSWORD_INSTAGRAM)
 
 const client = new Instagram({ username:USERNAME_INSTAGRAM, password:PASSWORD_INSTAGRAM })
 

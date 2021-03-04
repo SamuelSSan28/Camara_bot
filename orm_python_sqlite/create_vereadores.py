@@ -33,6 +33,10 @@ vereador_10 = Vereadores.create(nome='ENZO SAMUEL',perfil="@vereadorenzosamuel")
 # Inserimos um Vereador 
 vereador_11 = Vereadores.create(nome='EVANDRO HIDD',perfil="@vereadorafernandagomes")
 
+
+# Inserimos um Vereador 
+vereador_11 = Vereadores.create(nome='EVANDRO HIDD',perfil="@vereadorafernandagomes")
+
 # Inserimos um Vereador 
 vereador_12 = Vereadores.create(nome='GUSTAVO DE CARVALHO',perfil="@vereadorgustavodecarvalho")
 
