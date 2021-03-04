@@ -12,7 +12,9 @@ class Scraping_camara:
         self.chromedriver = "chromedriver.exe"
         pass
 
-    def acess(self, last_acess):
+    def acess(self, last_acess, vereadores_dict):
+        if last_acess == "":
+            return []
         page = 0
         find = False
         projetos = []
@@ -48,7 +50,7 @@ class Scraping_camara:
                     setor = driver.find_element_by_xpath(endereco_setor).text.split(": ")[1]
                     endereco_fase = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[9]'
                     fase = driver.find_element_by_xpath(endereco_fase).text.split(": ")[1]
-                    projetos.append({"processo": processo, "protocolo": protocolo, "data": data, "titulo": resumo, "situacao": situacao, "setor": setor, "fase": fase, "vereador": autor})
+                    projetos.append({"processo": processo, "protocolo": protocolo, "data": data, "titulo": resumo, "situacao": situacao, "setor": setor, "fase": fase, "vereador": vereadores_dict[autor.upper()]["id"]})
     
                     
                 page += 1
