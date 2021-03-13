@@ -9,15 +9,13 @@ import json
 
 class Scraping_camara:
     def __init__(self):
-        self.chromedriver = "chromedriver.exe"
+        self.chromedriver = '/home/naum/Documentos/BotCamara/src/chromedriver'
         pass
 
-    def acess(self, last_acess, vereadores_dict):
-        if last_acess == "":
-            return []
+    def acess(self, last_acess):
         page = 0
         find = False
-        projetos = []
+        projetos = {}
         driver = webdriver.Chrome(self.chromedriver)
         driver.set_page_load_timeout(10000)
         driver.get("http://www.splonline.com.br/cmteresina/consulta-cronologico.aspx")
@@ -29,13 +27,13 @@ class Scraping_camara:
             while find == False:
                 
                 for i in range(2, 12): 
+                    autores = []
                     endereco_processo = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[1]'
                     processo = driver.find_element_by_xpath(endereco_processo).text.split(": ")[1]
 
                     if processo == last_acess:
                         find = True
                         break
-                
                     tipo = driver.find_element_by_xpath(endereco_processo).text.split(" N")[0]
                     endereco_protocolo = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[2]'
                     protocolo = driver.find_element_by_xpath(endereco_protocolo).text.split("º ")[1]
@@ -55,7 +53,6 @@ class Scraping_camara:
                     endereco_fase = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[9]'
                     fase = driver.find_element_by_xpath(endereco_fase).text.split(": ")[1]
                     projetos.update({processo: {"protocolo": protocolo, "tipo":tipo, "data": data, "situacao": situacao, "autor": autor, "resumo": resumo, "setor": setor, "fase": fase, "autores": autores}})
-    
                     
                 page += 1
                 pagina = '//*[@id="ContentPlaceHolder1_rptPaging_lbPaging_' + str(page) + '"]'
@@ -63,11 +60,11 @@ class Scraping_camara:
                 button.click()
                 time.sleep(3)
 
-            #print(projetos)
+            print(projetos)
             return(projetos)
             driver.close()
         except Exception as e :
             print("ERRO em Camara",e)
 
 #sc = Scraping_camara()
-#sc.acess("374 /2021")
+#sc.acess("480 /2021")
