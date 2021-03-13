@@ -45,13 +45,16 @@ class Scraping_camara:
                     situacao = driver.find_element_by_xpath(endereco_situacao).text.split(": ")[1]
                     endereco_autor = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[6]'
                     autor = driver.find_element_by_xpath(endereco_autor).text.split(": ")[1]
+                    aux = autor.split(", ")
+                    for u in aux:
+                        autores.append(u)
                     endereco_resumo = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[7]'
                     resumo = driver.find_element_by_xpath(endereco_resumo).text
                     endereco_setor = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[8]'
                     setor = driver.find_element_by_xpath(endereco_setor).text.split(": ")[1]
                     endereco_fase = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[9]'
                     fase = driver.find_element_by_xpath(endereco_fase).text.split(": ")[1]
-                    projetos.update({processo: {"protocolo": protocolo, "tipo":tipo, "data": data, "situacao": situacao, "autor": autor, "resumo": resumo, "setor": setor, "fase": fase}})
+                    projetos.update({processo: {"protocolo": protocolo, "tipo":tipo, "data": data, "situacao": situacao, "autor": autor, "resumo": resumo, "setor": setor, "fase": fase, "autores": autores}})
     
                     
                 page += 1
