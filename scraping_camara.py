@@ -17,7 +17,7 @@ class Scraping_camara:
             return []
         page = 0
         find = False
-        projetos = []
+        projetos = {}
         driver = webdriver.Chrome(self.chromedriver)
         driver.set_page_load_timeout(10000)
         driver.get("http://www.splonline.com.br/cmteresina/consulta-cronologico.aspx")
@@ -31,6 +31,7 @@ class Scraping_camara:
                 for i in range(2, 12): 
                     endereco_processo = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[1]'
                     processo = driver.find_element_by_xpath(endereco_processo).text.split(": ")[1]
+                    autores=[]
 
                     if processo == last_acess:
                         find = True

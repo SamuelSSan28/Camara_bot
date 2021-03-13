@@ -7,28 +7,22 @@ db = peewee.SqliteDatabase('camara.db')
 class BaseModel(peewee.Model):
     """Classe model base"""
     class Meta:
-        # Indica em qual banco de dados a tabela
-        # 'author' sera criada (obrigatorio). Neste caso,
         database = db
 
 
 class Vereadores(BaseModel):
-    # A tabela possui apenas o campo 'name', que receberá o nome do autor sera unico
     nome = peewee.CharField()
     perfil = peewee.CharField(unique=True)
 
 
 class Projetos(BaseModel):
-    # A tabela possui apenas o campo 'name', que receberá o nome do autor sera unico
     processo = peewee.CharField(unique=True)
     protocolo = peewee.CharField()
     data = peewee.CharField()
     titulo = peewee.CharField()
     situacao = peewee.CharField()
-    setor = peewee.CharField()
-    fase = peewee.CharField()
-    vereador = peewee.ForeignKeyField(Vereadores)
-
+    vereador = peewee.CharField()
+    
 
 if __name__ == '__main__':
     try:
