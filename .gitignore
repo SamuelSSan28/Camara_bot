@@ -9,3 +9,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /orm_python_sqlite/camara.db
+
+camara.db

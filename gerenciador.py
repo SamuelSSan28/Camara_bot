@@ -1,6 +1,5 @@
 from orm_python_sqlite.index import Projetos, Vereadores
 from scraping_camara import Scraping_camara
-from gerar_imagens import gerador
 import os
 import json 
 
@@ -17,16 +16,15 @@ for vereador in vereadores:
 
 
 print(projetos[-1].processo)
-novos_projetos = sc.acess(projetos[-1].processo, vereadores_dict)[::-1]
 
-print(novos_projetos)
+novos_projetos = sc.acess(projetos[-1].processo)
 
 if novos_projetos :
-    with open("dados.json", "w") as outfile:  
-        json.dump(novos_projetos, outfile)
+    print("FINISH HIT")
+    with open("dados.json", "w", encoding='utf-8') as outfile:  
+        json.dump(novos_projetos, outfile,ensure_ascii=False)
     
-    #gerador.gerar_imagens(novos_projetos, vereadores_dict_nome)
-    #os.system("node .\instagram_api\imagens.js") #gerando as imagens
+    os.system("node .\instagram_api\imagens.js") #gerando as imagens
 
     #os.system("node .\instagram_api\index.js") #postando as imagens
 

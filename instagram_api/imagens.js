@@ -2,109 +2,140 @@ const nodeHtmlToImage = require('node-html-to-image');
 const path = require("path")
 const fs = require('fs');
 
-var autores = "";
-var titulo = "";
-var data = "";
-var situacao = "";
-var tipo = "";
+const create_images = async(dados) => {
+  var paths = [];
 
-const file_path = path.join(__dirname,"..",'novos_projetos.txt');
+  for (var key in dados) {
+    if (dados.hasOwnProperty(key)) {
+        var autores_li = "";
 
+        const path = `./instagram_api/image/image_${dados[key].protocolo}.jpeg`
 
+        paths.push(path);
 
-
-nodeHtmlToImage({
-  output: './image.png',
-  html: `
-  <html>
-  <meta charset="utf-8"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-  <head>
-     <style type = "text/css">
-        p { font-family: 'Roboto', sans-serif; color: #FFF; font-size: 35px; text-align: justify; }
-        li { font-family: 'Roboto', sans-serif; color: #FFF; font-size: 35px; }
-        body{
-            background-image: url("https://i.imgur.com/3iS3ZrO.jpg");
-            -webkit-flex: 1; flex: 1;
-            height: 1080px;
-            width: 1080px;
-            padding: 20px;
-            background-size: cover;
+        for (const element of dados[key].autores){
+            autores_li += `<li class="item">${element}</li>`
         }
 
-        #top{
-          margin-top: 20px;
-          padding: 50px;
-          height: 20%;
-          -webkit-flex: 1; flex: 1;
-            width: 100%;
-        }
-        
-        #mid{
-          font-weight:bold;
-          background: rgba(0, 0, 0, 0.5);
-          display: -webkit-flex; 
-          flex-direction: row-center;
-          align-items: center;
-          justify-content: center;
-          padding: 50px;
-          height: 60%;
-          -webkit-flex: 1; flex: 1;
-            width: 100%;
-        }
-        #bot{
-          padding: 50px;
-          height: 20%;
-          -webkit-flex: 1; flex: 1;
-            width: 100%;
-        }
-        * {
-            -webkit-box-sizing: border-box;
-          }
-          .flexrow {
-            display: -webkit-flex;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .flexrow2 {
-            display: -webkit-flex;
-            display: flex;
+        await nodeHtmlToImage({
+          output: path,
+          html: `
+          <html>
+          <meta charset="utf-8"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com">
+          <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
+          <head>
+            <style type = "text/css">
+                p { font-family: 'Roboto', sans-serif; color: #FFF; font-size: 35px; text-align: justify; }
+                li { font-family: 'Roboto', sans-serif; color: #FFF; font-size: 35px; }
+                body{
+                    background-image: url("https://i.imgur.com/3iS3ZrO.jpg");
+                    -webkit-flex: 1; flex: 1;
+                    height: 1080px;
+                    width: 1080px;
+                    padding: 20px;
+                    background-size: cover;
+                }
 
-      </style>
-  </head>
-  <body class="flexrow">
-  
-  <div id="top">
-     <p>Data: ${data}</p>
-        
-     <p>${tipo}</p>
+                #top{
+                  margin-top: 20px;
+                  padding: 50px;
+                  height: 20%;
+                  -webkit-flex: 1; flex: 1;
+                    width: 100%;
+                }
+                
+                #mid{
+                  font-weight:bold;
+                  background: rgba(0, 0, 0, 0.5);
+                  display: -webkit-flex; 
+                  flex-direction: row-center;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 50px;
+                  height: 50%;
+                  -webkit-flex: 1; flex: 1;
+                    width: 100%;
+                }
+                #bot{
+                  padding: 50px;
+                  height: 30%;
+                  -webkit-flex: 1; flex: 1;
+                    width: 100%;
+                }
+                * {
+                    -webkit-box-sizing: border-box;
+                  }
+                  .flexrow {
+                    display: -webkit-flex;
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                  }
+                  .flexrow2 {
+                    
+                    display: flex;
 
-     <p>Situação: ${situacao}</p>
-  </div>
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                  }
+                  .item {
+                    margin: 5px;
+                    text-align: center;
+                    font-size: 1.8em;
+                    }
+          
 
-  <div id="mid">
-    <div id="texto">
-      <p>${titulo}</p>
-    </div>
-  </div>
+              </style>
+          </head>
+          <body class="flexrow">
+          
+          <div id="top">
+            <p>Data: ${dados[key].data}</p>
+                
+            <p>${dados[key].tipo}</p>
 
-  <div id="bot">
-      <p>Autor(es) da Proposição: </p>
+            <p>Situação: ${dados[key].situacao}</p>
+          </div>
 
-    <ul class="flexrow2">
-      ${autores}
-    </ul>
-  </div>
+          <div id="mid">
+            <div id="texto">
+              <p>${dados[key].resumo}</p>
+            </div>
+          </div>
 
-  </body>
-  </html>
-  `
-}).then(() => console.log('The image was created successfully!'))
+          <div id="bot">
+              <p>Autor(es) da Proposição: </p>
+
+            <ul class="flexrow2">
+              ${autores_li}
+            </ul>
+          </div>
+
+          </body>
+          </html>
+          `
+        }).then(() => {
+          console.log('The image was created successfully!');
+          /*fs.unlink(path, (err) => {
+            if (err) {
+            console.log("ERRO NO DELETE")
+            console.error(err)
+            return false
+            }
+        })*/
+        })
+    }
+  }
+
+  dictstring= JSON.stringify({"paths":paths})
+  fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
+    if (err) return console.log(err);
+  });
+
+}
+
+const dados = require('../dados.json'); 
+create_images(dados);

@@ -22,6 +22,7 @@ class Projetos(BaseModel):
     titulo = peewee.CharField()
     situacao = peewee.CharField()
     vereador = peewee.CharField()
+    tipo = peewee.CharField()
     
 
 if __name__ == '__main__':

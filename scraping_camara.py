@@ -4,19 +4,23 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.chrome.options import Options
 import time
 import json
 
 class Scraping_camara:
     def __init__(self):
-        self.chromedriver = 'LINK_CHROMEDRIVER'
+        self.chromedriver = 'chromedriver.exe'
         pass
 
     def acess(self, last_acess):
         page = 0
         find = False
         projetos = {}
-        driver = webdriver.Chrome(self.chromedriver)
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        driver = webdriver.Chrome(self.chromedriver,chrome_options=options)
         driver.set_page_load_timeout(10000)
         driver.get("http://www.splonline.com.br/cmteresina/consulta-cronologico.aspx")
 
@@ -35,7 +39,12 @@ class Scraping_camara:
                     if processo == last_acess:
                         find = True
                         break
-                    tipo = driver.find_element_by_xpath(endereco_processo).text.split(" N")[0]
+                    endereco_tipo = '//*[@id="tabela"]/tbody/tr['+str(i)+']/td/div[1]/strong/a'
+                    tipo = driver.find_element_by_xpath(endereco_tipo).text
+
+                    if ("Indicação" in tipo):
+                        continue
+
                     endereco_protocolo = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[2]'
                     protocolo = driver.find_element_by_xpath(endereco_protocolo).text.split("º ")[1]
                     endereco_data = '//*[@id="tabela"]/tbody/tr[' + str(i) + ']/td/div[3]'
@@ -61,7 +70,6 @@ class Scraping_camara:
                 button.click()
                 time.sleep(3)
 
-            print(projetos)
             return(projetos)
             driver.close()
         except Exception as e :

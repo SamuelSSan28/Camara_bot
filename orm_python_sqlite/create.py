@@ -1,12 +1,13 @@
 from index import  Projetos
 
 projeto_1 = {
-    'processo':"479 /2021",
-    'protocolo':"540",
-    'data':'11/03/2021',
-    'titulo': 'SOLICITO A SDU/LESTE, O SERVIÇO DE CAPINA, LIMPEZA, RECUPERAÇÃO DA ILUMINAÇÃO PÚBLICA NA RUA PROJETADA 415 NA VILA MEIO NORTE, ZONA LESTE DA CAPITAL',
-    'vereador': "Edilberto Borges - Dudu",
-    'situacao':'Tramitando'
+    'processo':"438 /2021",
+    'protocolo':"542",
+    'data':'----',
+    'titulo': '---',
+    'vereador': "---",
+    'situacao':'---',
+    'tipo':'----'
 }
 
 
