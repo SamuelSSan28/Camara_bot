@@ -73,7 +73,9 @@ class Scraping_camara:
             return(projetos)
             driver.close()
         except Exception as e :
-            print("ERRO em Camara",e)
+            d,h = dataHora()
+            e = "Error: {0} no dia ".format(err) + d + " as " +h +"\n"
+            arq = open('logs.txt', 'a+')
+            arq.write(e)
+            arq.close()
 
-#sc = Scraping_camara()
-#sc.acess("480 /2021")

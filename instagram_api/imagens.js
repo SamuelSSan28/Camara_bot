@@ -16,7 +16,7 @@ const create_images = async(dados) => {
         for (const element of dados[key].autores){
             autores_li += `<li class="item">${element}</li>`
         }
-
+        
         await nodeHtmlToImage({
           output: path,
           html: `
@@ -48,7 +48,7 @@ const create_images = async(dados) => {
                 
                 #mid{
                   font-weight:bold;
-                  background: rgba(0, 0, 0, 0.5);
+                  background: rgba(0, 0, 0, 0.75);
                   display: -webkit-flex; 
                   flex-direction: row-center;
                   align-items: center;
@@ -118,14 +118,7 @@ const create_images = async(dados) => {
           </html>
           `
         }).then(() => {
-          console.log('The image was created successfully!');
-          /*fs.unlink(path, (err) => {
-            if (err) {
-            console.log("ERRO NO DELETE")
-            console.error(err)
-            return false
-            }
-        })*/
+          
         })
     }
   }
@@ -134,8 +127,18 @@ const create_images = async(dados) => {
   fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
     if (err) return console.log(err);
   });
-
 }
 
-const dados = require('../dados.json'); 
-create_images(dados);
+const write_log = (error_message) =>{
+  fs.appendFile("logs.txt",error_message+" -- "+data+"\n", function (err) {
+    if (err) return console.log("ERROROROROOROR");
+  });
+}
+
+try {
+  const dados = require('../dados.json'); 
+  console.log("---Gerando as imagens---\n")
+  create_images(dados);
+} catch (err) {
+  write_log("Erro ao criar as imagens"+err)
+}

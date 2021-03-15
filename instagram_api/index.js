@@ -8,21 +8,40 @@ const { USERNAME_INSTAGRAM, PASSWORD_INSTAGRAM } = process.env;
 const client = new Instagram({ username:USERNAME_INSTAGRAM, password:PASSWORD_INSTAGRAM })
 
 function wait(ms){
-  var start = new Date().getTime(); //verificar se é milisegundos
-  var end = start;
-  while(end < start + ms) {
-    end = new Date().getTime();
- }
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-(async () => {
-  await client.login()
-  const {paths} = require("./paths.json")
-
-  paths.forEach(async (p) => {
-      await client.uploadPhoto({photo: p, caption: "#custopiaui  #leisteresina", post: 'feed' }).catch(error => { console.log("Deu Erro",error)})
-      wait(10000)   
+const write_log = (error_message) =>{
+  var data = new Date();
+  fs.appendFile("logs.txt",error_message+" -- "+data+"\n", function (err) {
+    if (err) return console.log("ERROROROROOROR");
   });
+}
 
+
+(async() => {
+  const {paths} = require("./paths.json")
+  await client.login()
+
+  for (const path of paths) {
+    try {
+      var data = new Date();
+      var time_string = data.getHours() + ":" +data.getMinutes() + ":" + data.getSeconds();
+
+      await client.uploadPhoto({photo: path, caption: "#custopiaui  #leisteresina "+time_string, post: 'feed' })
+
+      await wait(120*1000)   
+
+      fs.unlink(path, (err) => {
+          if (err) {
+            write_log("Erro ao deletar a imagem"+err)
+          }
+      });
+
+    } catch (err) {
+      write_log("Erro na requisiçaõ"+err)
+    }
+  
+  }
  
 })()
