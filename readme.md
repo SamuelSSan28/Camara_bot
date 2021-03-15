@@ -27,7 +27,7 @@ Leis Teresina é um projeto desenvolvido com o propósito de acompanhar a elabor
 
 ## :rocket: Tecnologias
 
-Este projeto foi dessenvolvido com as seguintes tecnologias:
+Este projeto foi desenvolvido com as seguintes tecnologias:
 - [Python][Python]
 - [nodejs][nodejs]
 - [HTML to Image][HTML to Image]
