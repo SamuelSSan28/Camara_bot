@@ -25,7 +25,7 @@ Leis Teresina é um projeto desenvolvido com o propósito de acompanhar a elabor
 
 <br />
 
-## Install 
+## 🔨 Install 
 
 ```
 Instalar as libs python no requirements - pip install -r requirements.txt
@@ -34,7 +34,7 @@ Instalar as libs do node - ./instagram_api npm install
 
 Fazer o download do chromedriver compativel em https://chromedriver.chromium.org/downloads
 ```
-## Usage
+## 🎮 Usage
 
 ```
 python ./orm_python_sqlite/index.py
