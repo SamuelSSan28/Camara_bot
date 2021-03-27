@@ -125,7 +125,7 @@ const create_images = async(dados) => {
 
   dictstring= JSON.stringify({"paths":paths})
   fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
-    if (err) return console.log(err);
+    if (err) return console.log("\n***\n")
   });
 }
 
