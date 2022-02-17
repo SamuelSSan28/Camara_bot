@@ -15,34 +15,46 @@ function wait(ms){
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const write_log = (error_message) =>{
-  var data = new Date();
-  fs.appendFile("logs.txt",error_message+" -- "+data+"\n", function (err) {
-    if (err) return console.log("ERROROROROOROR");
-  });
-}
-
-
 (async() => {
   const {paths} = require("./paths.json")
-  await client.login()
-  console.log("Postando no Instagram")
+
+  try {
+    await client.login()
+  } catch(err) {
+    if (err.error && err.error.message === 'checkpoint_required') {
+      const challengeUrl = err.error.checkpoint_url
+      await client.updateChallenge({ challengeUrl, choice: 1  })
+    }
+  }
+
+  console.log("...")
   for (const path of paths) {
     try {    
       await client.uploadPhoto({photo: path, caption: "#custopiaui  #leisteresina ", post: 'feed' })
+      
+      await wait(300)   
 
-      await wait(600*1000)   
-
-      fs.unlink(path, (err) => {
+      await fs.unlink(path, (err) => {
           if (err) {
             write_log("Erro ao deletar a imagem"+err)
           }
       });
 
+
     } catch (err) {
-      write_log("Erro na requisiçaõ"+err)
+      var data = new Date();
+      var error_message = "Erro na api do instagram: "+err
+      fs.appendFile("logs.txt",error_message+" -- "+data+"\n", function (err) {
+        if (err) return console.log("Erro ao apagar o arquivo");
+      });
     }
-  
   }
+
+  const dictstring = JSON.stringify({"paths":[]});
+  await fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
+    if (err) return console.log("\n***\n",err)
+  });
+  console.log("Postado no Instagram")
+
  
 })()

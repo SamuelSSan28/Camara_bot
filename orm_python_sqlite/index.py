@@ -17,7 +17,7 @@ class Vereadores(BaseModel):
 
 class Projetos(BaseModel):
     processo = peewee.CharField(unique=True)
-    protocolo = peewee.CharField()
+    protocolo = peewee.IntegerField()
     data = peewee.CharField()
     titulo = peewee.CharField()
     situacao = peewee.CharField()

@@ -1,6 +1,7 @@
 const nodeHtmlToImage = require('node-html-to-image');
 const path = require("path")
 const fs = require('fs');
+const { error } = require('console');
 
 const create_images = async(dados) => {
   var paths = [];
@@ -18,6 +19,7 @@ const create_images = async(dados) => {
         }
         
         await nodeHtmlToImage({
+          puppeteerArgs: { args: ["--no-sandbox","--disable-setuid-sandbox"] },
           output: path,
           html: `
           <html>
@@ -123,22 +125,23 @@ const create_images = async(dados) => {
     }
   }
 
-  dictstring= JSON.stringify({"paths":paths})
-  fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
-    if (err) return console.log("\n***\n")
+  dictstring= JSON.stringify({"paths":paths});
+
+  await fs.writeFile("./instagram_api/paths.json", dictstring, function (err) {
+    if (err) return console.log("\n***\n",err)
   });
 }
 
-const write_log = (error_message) =>{
-  fs.appendFile("logs.txt",error_message+" -- "+data+"\n", function (err) {
-    if (err) return console.log("ERROROROROOROR");
-  });
-}
 
 try {
   const dados = require('../dados.json'); 
-  console.log("---Gerando as imagens---\n")
+  console.log("....")
   create_images(dados);
-} catch (err) {
-  write_log("Erro ao criar as imagens"+err)
+  console.log("---Imagens geradas com sucesso---\n")
+
+} catch (error) {
+  var data = new Date();
+  fs.appendFile("logs.txt","\nErro ao criar as imagens"+error+" -- "+data+"\n", function (err) {
+    if (err) return console.log("-ERRO-: ",err);
+  });
 }
